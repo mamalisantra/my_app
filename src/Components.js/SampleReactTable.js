@@ -1,109 +1,72 @@
-import React from 'react';
-import { useTable, useSortBy, usePagination } from 'react-table';
+import { useEffect, useState } from "react";
+import * as jnb from "react-bootstrap";
+import axios from "axios";
+export default function MyReport() {
+  // ********* All states ********
+  const [myData, setMyData] = useState([]);
+  const [myErrMsg, setMyErrMsg] = useState("");
+  const [myTable, setMyTable] = useState(false);
 
-const SampleReactTable = () => {
-  const data = React.useMemo(
-    () => [
-      { name: 'John Doe', age: 28, country: 'USA' },
-      { name: 'Jane Smith', age: 32, country: 'Canada' },
-      { name: 'Michael Johnson', age: 40, country: 'UK' },
-      { name: 'Alice Brown', age: 25, country: 'Australia' },
-      { name: 'Tom Clark', age: 35, country: 'Germany' },
-    ],
-    []
-  );
+  // ****************GET MY TABLE API********************
+  function getMyData() {
+    const url = "http://172.16.118.42:9091/demoproject/myData";
+    axios.get(url).then((res) => {
+      if (res !== null && res !== undefined) {
+        if (res?.data?.status === true) {
+          setMyTable(true);
+          setMyData(res?.data?.data);
+          setMyErrMsg(false);
+        } else {
+          setMyTable(true);
+          setMyData([]);
+          setMyErrMsg(true);
+        }
+      }
+    })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+        setMyTable(true);
+        setMyData([]);
+        setMyErrMsg(true);
+      });
+  }
+  useEffect(() => { getMyData(); }, [])
 
-  const columns = React.useMemo(
-    () => [
-      { Header: 'Name', accessor: 'name' },
-      { Header: 'Age', accessor: 'age' },
-      { Header: 'Country', accessor: 'country' },
-    ],
-    []
-  );
-
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    page, // instead of rows
-    prepareRow,
-    canNextPage,
-    canPreviousPage,
-    nextPage,
-    previousPage,
-    pageOptions,
-    state: { pageIndex, pageSize },
-    setPageSize,
-  } = useTable(
-    {
-      columns,
-      data,
-      initialState: { pageIndex: 0, pageSize: 3 },
-    },
-    useSortBy,
-    usePagination
-  );
-
-  return (
-    <div className="table-container">
-      <table {...getTableProps()} className="react-table">
-        <thead>
-          {headerGroups.map(headerGroup => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map(column => (
-                <th {...column.getHeaderProps(column.getSortByToggleProps())}>
-                  {column.render('Header')}
-                  <span>
-                    {column.isSorted
-                      ? column.isSortedDesc
-                        ? ' 🔽'
-                        : ' 🔼'
-                      : ''}
-                  </span>
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody {...getTableBodyProps()}>
-          {page.map(row => {
-            prepareRow(row);
-            return (
-              <tr {...row.getRowProps()}>
-                {row.cells.map(cell => (
-                  <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
-                ))}
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-
-      <div className="pagination">
-        <button onClick={() => previousPage()} disabled={!canPreviousPage}>
-          Previous
-        </button>
-        <span>
-          Page {pageIndex + 1} of {pageOptions.length}
-        </span>
-        <button onClick={() => nextPage()} disabled={!canNextPage}>
-          Next
-        </button>
-        <select
-          value={pageSize}
-          onChange={e => setPageSize(Number(e.target.value))}
-        >
-          {[3, 5, 10].map(size => (
-            <option key={size} value={size}>
-              Show {size}
-            </option>
-          ))}
-        </select>
-      </div>
-    </div>
-  );
-};
-
-export default SampleReactTable;
-
+  return (<>
+    <jnb.Row className="px-3">
+      {myTable ? (<>
+        <jnb.Col xs={12} sm={12} md={12} lg={10} xl={10} xxl={10}>
+          <div className="inner-herbpage-service-title-sub">
+            <h3>My Report</h3>
+          </div>
+        </jnb.Col>
+        <jnb.Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
+          {myErrMsg ? (
+            <center className="text-danger h3"> *** No Data Found *** </center>) : (<>
+              <jnb.Table striped bordered hover responsive>
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Gender</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {myData.map((row, rowIndex) => (
+                    <tr key={rowIndex}>
+                      <td>{row.id}</td>
+                      <td>{row.name}</td>
+                      <td>{row.email}</td>
+                      <td>{row.gender}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </jnb.Table>
+            </>
+          )}
+        </jnb.Col>
+      </>) : (<></>)}
+    </jnb.Row>
+  </>)
+}
