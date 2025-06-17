@@ -5,14 +5,13 @@ const Nav = () => {
     return (
         <>
             <nav className='navbar'>
-                <ul className="ul">
+                <ul className="ul">git1
                     <li className="li" onClick={() => navigate('/home')}>Home</li>
                     <li className="li" onClick={() => navigate('/about')}>About</li>
                     <li className="li" onClick={() => navigate('/sampleReactTable')}>Get Data</li>
                     <li className="li" onClick={() => navigate('/sampleFields')}>Get Data</li>
                 </ul>
             </nav>
-
         </>
     );
 };
