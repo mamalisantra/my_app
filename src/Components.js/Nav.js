@@ -5,7 +5,7 @@ const Nav = () => {
     return (
         <>
             <nav className='navbar'>
-                <ul className="ul">This is Navbar
+                <ul className="ul">This is Navbar2
                     <li className="li" onClick={() => navigate('/home')}>Home</li>
                     <li className="li" onClick={() => navigate('/about')}>About</li>
                     <li className="li" onClick={() => navigate('/sampleReactTable')}>Get Data</li>
