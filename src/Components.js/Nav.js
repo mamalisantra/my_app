@@ -10,7 +10,7 @@ const Nav = () => {
                     <li className="li" onClick={() => navigate('/about')}>About</li>
                     <li className="li" onClick={() => navigate('/sampleReactTable')}>Get Data</li>
                     <li className="li" onClick={() => navigate('/sampleFields')}>Get Data</li>
-                </ul>
+                </ul>lllllllllllllll
             </nav>
 
         </>
