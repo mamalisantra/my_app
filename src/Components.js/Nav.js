@@ -5,12 +5,12 @@ const Nav = () => {
     return (
         <>
             <nav className='navbar'>
-                <ul className="ul">git1 local1 git2
+                <ul className="ul">git1 local1 git2 local2
                     <li className="li" onClick={() => navigate('/home')}>Home</li>
                     <li className="li" onClick={() => navigate('/about')}>About</li>
                     <li className="li" onClick={() => navigate('/sampleReactTable')}>Get Data</li>
                     <li className="li" onClick={() => navigate('/sampleFields')}>Get Data</li>
-                </ul>local2
+                </ul>
             </nav>
         </>
     );
