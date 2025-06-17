@@ -1,4 +1,3 @@
-import React from 'react';
 import '../App.css';
 import { useNavigate } from 'react-router-dom';
 const Nav = () => {
@@ -9,9 +8,11 @@ const Nav = () => {
                 <ul className="ul">
                     <li className="li" onClick={() => navigate('/home')}>Home</li>
                     <li className="li" onClick={() => navigate('/about')}>About</li>
-                    <li className="li" onClick={() => navigate('/sampleReactTable')}>Table Data</li>
+                    <li className="li" onClick={() => navigate('/sampleReactTable')}>Get Data</li>
+                    <li className="li" onClick={() => navigate('/sampleFields')}>Get Data</li>
                 </ul>
             </nav>
+            
         </>
     );
 };
