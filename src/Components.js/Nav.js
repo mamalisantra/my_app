@@ -5,7 +5,7 @@ const Nav = () => {
     return (
         <>
             <nav className='navbar'>
-                <ul className="ul">git1 local1 git2 local2 git3 local3
+                <ul className="ul">git1 local1 git2 local2 git3 local3 git4
                     <li className="li" onClick={() => navigate('/home')}>Home</li>
                     <li className="li" onClick={() => navigate('/about')}>About</li>
                     <li className="li" onClick={() => navigate('/sampleReactTable')}>Get Data</li>
